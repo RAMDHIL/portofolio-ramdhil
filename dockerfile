@@ -1,20 +1,19 @@
-# Stage 1: Build frontend assets pakai Node.js
 FROM node:18 AS build-frontend
 
 WORKDIR /app
 
-# Copy file package.json dan package-lock.json lalu install dependencies
+# Copy hanya package.json dan package-lock.json dulu
 COPY package*.json ./
+
+# Install dependencies (termasuk vite)
 RUN npm install
 
-# Copy semua asset frontend (CSS, JS, config)
-COPY resources ./resources
-COPY vite.config.js .
-COPY tailwind.config.js .
-COPY postcss.config.js .
+# Baru copy sisa source code
+COPY . .
 
-# Build asset dengan Vite (tailwind + js)
+# Build assets
 RUN npm run build
+
 
 # Stage 2: Setup Laravel PHP environment
 FROM php:8.1-fpm
