@@ -28,7 +28,7 @@ WORKDIR /var/www/html
 COPY . .
 
 # Copy hasil build frontend dari stage 1 ke public/build
-COPY --from=build-frontend /app/dist ./public/build
+COPY COPY --from=build-frontend /app/public/build ./public/build
 
 # Install composer dan dependencies Laravel
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
